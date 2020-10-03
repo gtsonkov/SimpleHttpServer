@@ -1,6 +1,7 @@
 ﻿using HttpServer.Http.Contracts;
 using System;
 using System.Collections.Generic;
+using HttpServer.Http.Constants;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -39,7 +40,34 @@ namespace HttpServer.Http
 
         private async Task ProcessClientAsync(TcpClient client)
         {
-            throw new NotImplementedException();
+            using (NetworkStream clientStream = client.GetStream())
+            {
+                int position = 0;
+
+                List<byte> clientData = new List<byte>();
+                byte[] buffer = new byte[ConstantData.BufferLenght];
+
+                while (true)
+                {
+                    int currentCountOfReadedBits = await clientStream.ReadAsync(buffer, position, buffer.Length);
+
+                    if (currentCountOfReadedBits < buffer.Length)
+                    {
+                        byte[] restData = new byte[currentCountOfReadedBits];
+                        Array.Copy(buffer, restData, currentCountOfReadedBits);
+
+                        clientData.AddRange(restData);
+
+                        break; //No more data to read
+                    }
+                    else
+                    {
+                        clientData.AddRange(buffer);
+                    }
+
+                    position += currentCountOfReadedBits;
+                }
+            }
         }
     }
 }
