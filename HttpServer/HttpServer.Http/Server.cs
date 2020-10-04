@@ -10,13 +10,13 @@ using IO;
 
 namespace HttpServer.Http
 {
-    public class HttpServer : IHttpServer
+    public class Server : IHttpServer
     {
         private Logger _logger;
 
         private IDictionary<string, Func<HttpRequest, HttpResponse>> routTable;
 
-        public HttpServer()
+        public Server()
         {
             this._logger = new Logger();
             this.routTable = new Dictionary<string, Func<HttpRequest, HttpResponse>>();
@@ -85,19 +85,21 @@ namespace HttpServer.Http
                 //Header
                 string responseHtml = MessagesResponse.HtmlHeader + MessagesResponse.NewLine;
 
-                byte[] responseHeaderBytes = EncodingUtfToBytes(responseHtml);
+                byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
 
                 string responseHttp = MessagesResponse.HttpResponseOK + MessagesResponse.NewLine
                     + "Server: " + MessagesResponse.ServerName + " " + MessagesResponse.ServerVersion + MessagesResponse.NewLine
                     + "Content-Type: " + MessagesResponse.ContentHTML + MessagesResponse.NewLine
-                    + "Content-Lenght: " + responseHeaderBytes.Length + MessagesResponse.NewLine
+                    + "Content-Lenght: " + responseBodyBytes.Length + MessagesResponse.NewLine
                     + MessagesResponse.NewLine;
 
-                var responseBodyBytes = EncodingUtfToBytes(responseHttp);
+                var responseHeaderBytes = EncodingUtfToBytes(responseHttp);
 
                 await clientStream.WriteAsync(responseHeaderBytes, 0, responseHeaderBytes.Length);
                 await clientStream.WriteAsync(responseBodyBytes, 0, responseBodyBytes.Length);
             }
+
+            client.Close();
         }
 
         private byte[] EncodingUtfToBytes(string text)
