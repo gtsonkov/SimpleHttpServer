@@ -83,15 +83,15 @@ namespace HttpServer.Http
                 await this._logger.WriteLineAsync(clientRequest);
 
                 //Header
-                string responseHtml = MessagesResponse.HtmlHeader + MessagesResponse.NewLine;
+                string responseHtml = MessagesResponse.HtmlHeader + ConstantData.NewLine;
 
                 byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
 
-                string responseHttp = MessagesResponse.HttpResponseOK + MessagesResponse.NewLine
-                    + "Server: " + MessagesResponse.ServerName + " " + MessagesResponse.ServerVersion + MessagesResponse.NewLine
-                    + "Content-Type: " + MessagesResponse.ContentHTML + MessagesResponse.NewLine
-                    + "Content-Lenght: " + responseBodyBytes.Length + MessagesResponse.NewLine
-                    + MessagesResponse.NewLine;
+                string responseHttp = MessagesResponse.HttpResponseOK + ConstantData.NewLine
+                    + "Server: " + MessagesResponse.ServerName + " " + MessagesResponse.ServerVersion + ConstantData.NewLine
+                    + "Content-Type: " + MessagesResponse.ContentHTML + ConstantData.NewLine
+                    + "Content-Lenght: " + responseBodyBytes.Length + ConstantData.NewLine
+                    + ConstantData.NewLine;
 
                 var responseHeaderBytes = EncodingUtfToBytes(responseHttp);
 

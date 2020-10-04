@@ -2,8 +2,6 @@
 {
     public static class MessagesResponse
     {
-        public static string NewLine = "\r\n";
-
         public static string HtmlHeader = "<h1>Welcome!</h1>";
 
         public static string HttpVersion = "HTTP/1.1";

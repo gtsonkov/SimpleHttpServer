@@ -1,7 +1,45 @@
-﻿namespace HttpServer.Http
+﻿using HttpServer.Http.Constants;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+
+namespace HttpServer.Http
 {
     public class HttpRequest
     {
+        private HttpRequest ()
+        {
+            this.Headers = new List<Header>();
+            this.Cookies = new List<Cookie>();
+        }
 
+        public HttpRequest(string requestString)
+            :base()
+        {
+            var lines = requestString.Split(new string[]
+            { ConstantData.NewLine }
+            , System.StringSplitOptions.None)
+                .ToArray();
+
+            var headerLine = lines[0];
+
+            var headerLineParts = headerLine
+                .Split(' ')
+                .ToArray();
+
+            this.Method = headerLineParts[0];
+
+            this.Path = headerLineParts[1];
+        }
+
+        public string Path { get; set; }
+
+        public string Method { get; set; }
+
+        public string RequestBoddy { get; set; }
+
+        public List<Header> Headers { get; set; }
+
+        public List<Cookie> Cookies { get; set; }
     }
 }
