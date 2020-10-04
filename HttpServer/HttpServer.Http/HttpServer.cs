@@ -5,12 +5,22 @@ using HttpServer.Http.Constants;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using System.Text;
+using IO;
 
 namespace HttpServer.Http
 {
     public class HttpServer : IHttpServer
     {
-        private IDictionary<string, Func<HttpRequest, HttpResponse>> routTable = new Dictionary<string, Func<HttpRequest, HttpResponse>>();
+        private Logger _logger;
+
+        private IDictionary<string, Func<HttpRequest, HttpResponse>> routTable;
+
+        public HttpServer()
+        {
+            this._logger = new Logger();
+            this.routTable = new Dictionary<string, Func<HttpRequest, HttpResponse>>();
+        }
 
         public void AddRoute(string path, Func<HttpRequest, HttpResponse> action)
         {
@@ -67,7 +77,37 @@ namespace HttpServer.Http
 
                     position += currentCountOfReadedBits;
                 }
+
+                string clientRequest = await EncodingClientData(clientData);
+
+                await this._logger.WriteLineAsync(clientRequest);
+
+                //Header
+                string responseHtml = MessagesResponse.HtmlHeader + MessagesResponse.NewLine;
+
+                byte[] responseHeaderBytes = EncodingUtfToBytes(responseHtml);
+
+                string responseHttp = MessagesResponse.HttpResponseOK + MessagesResponse.NewLine
+                    + "Server: " + MessagesResponse.ServerName + " " + MessagesResponse.ServerVersion + MessagesResponse.NewLine
+                    + "Content-Type: " + MessagesResponse.ContentHTML + MessagesResponse.NewLine
+                    + "Content-Lenght: " + responseHeaderBytes.Length + MessagesResponse.NewLine
+                    + MessagesResponse.NewLine;
+
+                var responseBodyBytes = EncodingUtfToBytes(responseHttp);
+
+                await clientStream.WriteAsync(responseHeaderBytes, 0, responseHeaderBytes.Length);
+                await clientStream.WriteAsync(responseBodyBytes, 0, responseBodyBytes.Length);
             }
+        }
+
+        private byte[] EncodingUtfToBytes(string text)
+        {
+            return Encoding.UTF8.GetBytes(text);
+        }
+
+        private async Task<string> EncodingClientData(List<byte> clientData)
+        {
+            return Encoding.UTF8.GetString(clientData.ToArray());
         }
     }
 }
