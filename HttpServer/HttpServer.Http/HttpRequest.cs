@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 
 namespace HttpServer.Http
 {
@@ -14,8 +15,10 @@ namespace HttpServer.Http
         }
 
         public HttpRequest(string requestString)
-            :base()
         {
+            this.Headers = new List<Header>();
+            this.Cookies = new List<Cookie>();
+
             var lines = requestString.Split(new string[]
             { ConstantData.NewLine }
             , System.StringSplitOptions.None)
@@ -30,6 +33,31 @@ namespace HttpServer.Http
             this.Method = headerLineParts[0];
 
             this.Path = headerLineParts[1];
+
+            bool inHeaders = true;
+
+            StringBuilder bodyBuilder = new StringBuilder();
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                var currLine = lines[i];
+
+                if (string.IsNullOrEmpty(currLine))
+                {
+                    inHeaders = false;
+                    continue;
+                }
+
+                if (inHeaders)
+                {
+                    this.Headers.Add(new Header(currLine));
+                }
+
+                else
+                {
+                    bodyBuilder.AppendLine(currLine);
+                }
+            }
         }
 
         public string Path { get; set; }

@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Text;
 using IO;
+using System.Linq;
 
 namespace HttpServer.Http
 {
@@ -42,6 +43,7 @@ namespace HttpServer.Http
 
             while (true)
             {
+                
                 TcpClient client = await tcpListener.AcceptTcpClientAsync();
 
                 ProcessClientAsync(client);
@@ -80,10 +82,13 @@ namespace HttpServer.Http
 
                 string clientRequest = await EncodingClientData(clientData);
 
+                var request = new HttpRequest(clientRequest);
+
                 await this._logger.WriteLineAsync(clientRequest);
 
                 //Header
-                string responseHtml = MessagesResponse.HtmlHeader + ConstantData.NewLine;
+                string responseHtml = MessagesResponse.HtmlHeader + ConstantData.NewLine
+                    + request.Headers.FirstOrDefault(x => x.Name == "User-Agent")?.Value;
 
                 byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
 
