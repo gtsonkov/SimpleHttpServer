@@ -7,5 +7,11 @@
         public static string NewLine = "\r\n";
 
         public static string CookieHeader = "Cookie";
+
+        public static string ContenTypeHeader = "Content-Type";
+
+        public static string ContentLegthHeader = "Content-Length";
+
+        public static string ServerNameHeader = "Server";
     }
 }

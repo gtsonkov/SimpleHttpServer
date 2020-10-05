@@ -13,5 +13,7 @@
         public static string ServerVersion = "1.0";
 
         public static string ContentHTML = "text/html";
+
+        public static string FullServerInfo = ServerName + " " + ServerVersion;
     }
 }

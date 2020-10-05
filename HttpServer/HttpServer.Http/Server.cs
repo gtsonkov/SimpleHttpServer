@@ -86,22 +86,21 @@ namespace HttpServer.Http
 
                 await this._logger.WriteLineAsync(clientRequest);
 
+                
+
                 //Header
                 string responseHtml = MessagesResponse.HtmlHeader + ConstantData.NewLine
                     + request.Headers.FirstOrDefault(x => x.Name == "User-Agent")?.Value;
 
                 byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
 
-                string responseHttp = MessagesResponse.HttpResponseOK + ConstantData.NewLine
-                    + "Server: " + MessagesResponse.ServerName + " " + MessagesResponse.ServerVersion + ConstantData.NewLine
-                    + "Content-Type: " + MessagesResponse.ContentHTML + ConstantData.NewLine
-                    + "Content-Lenght: " + responseBodyBytes.Length + ConstantData.NewLine
-                    + ConstantData.NewLine;
+                var response = new HttpResponse("text/html", responseBodyBytes);
+                response.Headers.Add(new Header(ConstantData.ServerNameHeader, MessagesResponse.FullServerInfo));
 
-                var responseHeaderBytes = EncodingUtfToBytes(responseHttp);
+                var responseHeaderBytes = EncodingUtfToBytes(response.ToString());
 
                 await clientStream.WriteAsync(responseHeaderBytes, 0, responseHeaderBytes.Length);
-                await clientStream.WriteAsync(responseBodyBytes, 0, responseBodyBytes.Length);
+                await clientStream.WriteAsync(response.Body, 0, response.Body.Length);
             }
 
             client.Close();
