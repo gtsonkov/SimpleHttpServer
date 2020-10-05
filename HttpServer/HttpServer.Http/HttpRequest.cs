@@ -19,6 +19,21 @@ namespace HttpServer.Http
             this.Headers = new List<Header>();
             this.Cookies = new List<Cookie>();
 
+            RequestStringParsing(requestString);
+        }
+
+        public string Path { get; set; }
+
+        public string Method { get; set; }
+
+        public string RequestBoddy { get; set; }
+
+        public List<Header> Headers { get; set; }
+
+        public List<Cookie> Cookies { get; set; }
+
+        private void RequestStringParsing(string requestString)
+        {
             var lines = requestString.Split(new string[]
             { ConstantData.NewLine }
             , System.StringSplitOptions.None)
@@ -59,15 +74,5 @@ namespace HttpServer.Http
                 }
             }
         }
-
-        public string Path { get; set; }
-
-        public string Method { get; set; }
-
-        public string RequestBoddy { get; set; }
-
-        public List<Header> Headers { get; set; }
-
-        public List<Cookie> Cookies { get; set; }
     }
 }
