@@ -1,14 +1,13 @@
 ﻿using HttpServer.Http.Constants;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 
 namespace HttpServer.Http
 {
     public class HttpRequest
     {
-        private HttpRequest ()
+        private HttpRequest()
         {
             this.Headers = new List<Header>();
             this.Cookies = new List<Cookie>();
@@ -72,6 +71,31 @@ namespace HttpServer.Http
                 {
                     bodyBuilder.AppendLine(currLine);
                 }
+            }
+
+            var cookies = this.Headers.FirstOrDefault(x => x.Name == ConstantData.CookieHeader);
+
+            if (cookies != null)
+            {
+                ParseCookies(cookies.Value);
+            }
+
+            this.RequestBoddy = bodyBuilder.ToString();
+        }
+
+        private void ParseCookies(string cookies)
+        {
+            var cookieData = cookies.
+                Split(new string[] { "; " }
+                , System.StringSplitOptions
+                .RemoveEmptyEntries)
+                .ToArray();
+
+            foreach (var c in cookieData)
+            {
+                Cookie currCookie = new Cookie(c);
+
+                this.Cookies.Add(currCookie);
             }
         }
     }
