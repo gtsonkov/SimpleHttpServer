@@ -13,5 +13,9 @@
         public static string ContentLegthHeader = "Content-Length";
 
         public static string ServerNameHeader = "Server";
+
+        public static string DefaultPathChar = @"\";
+
+        public static string SetCookieHeader = "Set-Cookie";
     }
 }

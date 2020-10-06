@@ -1,5 +1,6 @@
 ﻿using HttpServer.Http.Constants;
 using HttpServer.Http.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,13 @@ namespace HttpServer.Http
     {
         public HttpResponse(string contentType, byte[] body, HttpStatusCode statusCode = HttpStatusCode.Ok)
         {
+            if (body == null)
+            {
+                throw new ArgumentNullException(nameof(body));
+            }
+
+            this.Cookies = new HashSet<Cookie>();
+
             this.StatusCode = statusCode; //Default value Ok
             this.Body = body;
 
@@ -19,6 +27,8 @@ namespace HttpServer.Http
         }
 
         public ICollection<Header> Headers { get; set; }
+
+        public ICollection<Cookie> Cookies { get; set; }
 
         public HttpStatusCode StatusCode { get; set; }
 
@@ -32,6 +42,11 @@ namespace HttpServer.Http
             foreach (var header in this.Headers)
             {
                 rb.Append(header.ToString() + ConstantData.NewLine);
+            }
+
+            foreach (var cookie in this.Cookies)
+            {
+                rb.Append($"{ConstantData.SetCookieHeader}: {cookie}" + ConstantData.NewLine);
             }
 
             rb.Append(ConstantData.NewLine);
