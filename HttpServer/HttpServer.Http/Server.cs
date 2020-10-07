@@ -86,16 +86,23 @@ namespace HttpServer.Http
 
                 await this._logger.WriteLineAsync(clientRequest);
 
-                
+                HttpResponse response;
 
-                //Header
-                string responseHtml = MessagesResponse.HtmlHeader + ConstantData.NewLine
-                    + request.Headers.FirstOrDefault(x => x.Name == "User-Agent")?.Value;
+                if (this.routTable.ContainsKey(request.Path))
+                {
+                    var action = this.routTable[request.Path];
+                    response = action(request);
+                }
 
-                byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
+                else
+                {
+                    string responseHtml = MessagesResponse.HtmlHeaderNotFound + ConstantData.NewLine
+                        + request.Headers.FirstOrDefault(x => x.Name == "User-Agent")?.Value;
 
-                var response = new HttpResponse("text/html", responseBodyBytes);
-                response.Headers.Add(new Header(ConstantData.ServerNameHeader, MessagesResponse.FullServerInfo));
+                    byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
+                    // 404 Not Found
+                    response = new HttpResponse(MessagesResponse.ContentHTML, responseBodyBytes, Enums.HttpStatusCode.NotFound);
+                }
 
                 var responseHeaderBytes = EncodingUtfToBytes(response.ToString());
 

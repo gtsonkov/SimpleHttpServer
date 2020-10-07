@@ -2,7 +2,11 @@
 {
     public static class MessagesResponse
     {
-        public static string HtmlHeader = "<h1>Welcome!</h1>";
+        public static string HtmlHeaderWelcome = "<h1>Welcome!</h1>";
+
+        public static string HtmlHeaderAbout = "<h1>About..............</h1>";
+
+        public static string HtmlHeaderNotFound = "<h1>404 - Page Not Found!</h1>";
 
         public static string HttpVersion = "HTTP/1.1";
 
