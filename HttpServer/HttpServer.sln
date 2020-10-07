@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{849B0C15-3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMvcApp", "TestMvcApp\TestMvcApp.csproj", "{65E9A435-E116-46C4-9DBA-818A70CB310E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IO", "Logger\IO.csproj", "{F2963C55-2F05-4C52-9E1D-F74C5F7803EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IO", "IO\IO.csproj", "{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{65E9A435-E116-46C4-9DBA-818A70CB310E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65E9A435-E116-46C4-9DBA-818A70CB310E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65E9A435-E116-46C4-9DBA-818A70CB310E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F2963C55-2F05-4C52-9E1D-F74C5F7803EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2963C55-2F05-4C52-9E1D-F74C5F7803EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2963C55-2F05-4C52-9E1D-F74C5F7803EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2963C55-2F05-4C52-9E1D-F74C5F7803EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
