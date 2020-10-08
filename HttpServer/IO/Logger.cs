@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace IO
 {
+    /// <summary>
+    /// Using to make logging from server process, in this case write it on the console.
+    /// </summary>
     public class Logger : IWriter
     {
         public void Write(string message)

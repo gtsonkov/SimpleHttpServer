@@ -35,6 +35,11 @@ namespace HttpServer.Http
             this.routTable.Add(path, action);
         }
 
+        /// <summary>
+        /// This method run the server, and wait for client request
+        /// </summary>
+        /// <param name="port">Port to lisen for client request</param>
+        /// <returns></returns>
         public async Task StartAsync(int port)
         {
             TcpListener tcpListener = new TcpListener(IPAddress.Loopback, port);
@@ -50,6 +55,11 @@ namespace HttpServer.Http
             }
         }
 
+        /// <summary>
+        /// Reading and processing the client request.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
         private async Task ProcessClientAsync(TcpClient client)
         {
             using (NetworkStream clientStream = client.GetStream())
