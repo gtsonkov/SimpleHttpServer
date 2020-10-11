@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HttpServer.Http\HttpServer.Http.csproj" />
+    <ProjectReference Include="..\HttpServer.MvcFramework\HttpServer.MvcFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

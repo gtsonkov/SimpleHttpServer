@@ -1,11 +1,12 @@
 ﻿using HttpServer.Http;
 using HttpServer.Http.Constants;
+using HttpServer.MvcFramework;
 using System.Linq;
 using System.Text;
 
 namespace TestMvcApp.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
         public HttpResponse Index(HttpRequest request)
         {

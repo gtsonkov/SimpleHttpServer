@@ -1,6 +1,8 @@
-﻿namespace TestMvcApp.Controllers
+﻿using HttpServer.MvcFramework;
+
+namespace TestMvcApp.Controllers
 {
-    public class UsersController
+    public class UsersController : Controller
     {
 
     }
