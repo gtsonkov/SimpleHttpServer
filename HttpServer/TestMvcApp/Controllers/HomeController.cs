@@ -1,6 +1,7 @@
 ﻿using HttpServer.Http;
 using HttpServer.Http.Constants;
 using HttpServer.MvcFramework;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -10,8 +11,7 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse Index(HttpRequest request)
         {
-            string responseHtml = MessagesResponse.HtmlHeaderWelcome + ConstantData.NewLine
-                        + request.Headers.FirstOrDefault(x => x.Name == "User-Agent")?.Value;
+            string responseHtml = File.ReadAllText("./View/Home/index.html").ToString();
 
             byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
 
