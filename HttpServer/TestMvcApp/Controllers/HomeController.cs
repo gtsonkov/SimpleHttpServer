@@ -34,7 +34,7 @@ namespace TestMvcApp.Controllers
             return response;
         }
 
-        private static byte[] EncodingUtfToBytes(string text)
+        private byte[] EncodingUtfToBytes(string text)
         {
             return Encoding.UTF8.GetBytes(text);
         }

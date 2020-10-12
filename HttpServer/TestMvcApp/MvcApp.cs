@@ -13,6 +13,9 @@ namespace TestMvcApp
             server.AddRoute("/",new HomeController().Index);
             server.AddRoute("/about",new HomeController().About);
             server.AddRoute("/favicon.ico",new StaticFilesController().Favicon);
+            server.AddRoute("/login", new UsersController().Login);
+            server.AddRoute("/register", new UsersController().Register);
+
             await server.StartAsync(80);
         }
     }
