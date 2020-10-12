@@ -6,21 +6,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\Users\Login.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="View\Users\Login.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HttpServer.Http\HttpServer.Http.csproj" />
     <ProjectReference Include="..\HttpServer.MvcFramework\HttpServer.MvcFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="View\Home\Index.html">
+    <None Update="View\Home\Index.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="wwwroot\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="View\Users\" />
   </ItemGroup>
 
 </Project>
