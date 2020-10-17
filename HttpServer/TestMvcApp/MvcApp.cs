@@ -11,10 +11,10 @@ namespace TestMvcApp
         {
             IHttpServer server = new Server();
             server.AddRoute("/",new HomeController().Index);
-            server.AddRoute("/home/about",new HomeController().About);
+            server.AddRoute("/Home/About",new HomeController().About);
             server.AddRoute("/favicon.ico",new StaticFilesController().Favicon);
-            server.AddRoute("/users/login", new UsersController().Login);
-            server.AddRoute("/users/register", new UsersController().Register);
+            server.AddRoute("/Users/Login", new UsersController().Login);
+            server.AddRoute("/Users/Register", new UsersController().Register);
 
             await server.StartAsync(80);
         }

@@ -7,6 +7,6 @@ namespace HttpServer.Http.Contracts
     {
         void AddRoute(string path, Func<HttpRequest, HttpResponse> action);
 
-       Task StartAsync(int port);
+        Task StartAsync(int port);
     }
 }
