@@ -1,7 +1,5 @@
 ﻿using HttpServer.Http;
 using HttpServer.MvcFramework;
-using System;
-using System.Text;
 using TestMvcApp.Common;
 
 namespace TestMvcApp.Controllers
@@ -10,8 +8,8 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse Index(HttpRequest request)
         {
-            string path = Generator.GenerateInternPath(request.Path);
-            return this.Viev(path);
+            string pathIndex = "./View/Home/Index.html";
+            return this.Viev(pathIndex);
         }
 
         public HttpResponse About(HttpRequest request)
