@@ -1,4 +1,4 @@
-﻿namespace TestMvcApp.Constants
+﻿namespace TestMvcApp.Common
 {
     public static class ConstantData_TestMVC
     {
