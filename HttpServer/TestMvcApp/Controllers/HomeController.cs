@@ -8,7 +8,7 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse Index(HttpRequest request)
         {
-            string pathIndex = "./View/Home/Index.html";
+            string pathIndex = ConstantData_TestMVC.PathIdexView;
             return this.Viev(pathIndex);
         }
 
