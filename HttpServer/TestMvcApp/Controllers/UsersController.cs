@@ -9,14 +9,12 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse Login(HttpRequest request)
         {
-            string path = Generator.GenerateInternPath(request.Path);
-            return this.Viev(path);
+            return this.View("Login");
         }
 
         public HttpResponse Register(HttpRequest request)
         {
-            string path = Generator.GenerateInternPath(request.Path);
-            return this.Viev(path);
+            return this.View("Register");
         }
     }
 }

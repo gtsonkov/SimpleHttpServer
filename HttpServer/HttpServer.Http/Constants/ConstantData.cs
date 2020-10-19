@@ -14,8 +14,14 @@
 
         public static string ServerNameHeader = "Server";
 
-        public static string DefaultPathChar = @"\";
+        public static string DefaultPathChar = @"/";
 
         public static string SetCookieHeader = "Set-Cookie";
+
+        public static string DefaultViewFolder = "View";
+
+        public static string ControllerHeader = "Controller";
+
+        public const string HtmlFileExtension = ".html";
     }
 }

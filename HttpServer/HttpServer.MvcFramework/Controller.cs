@@ -7,9 +7,16 @@ namespace HttpServer.MvcFramework
 {
     public abstract class Controller
     {
-        public HttpResponse Viev (string viewPath)
+        public HttpResponse View (string viewPath)
         {
-            string responseHtml = File.ReadAllText(viewPath).ToString();
+            string responseHtml = File.ReadAllText(
+                ConstantData.DefaultViewFolder 
+                + ConstantData.DefaultPathChar 
+                + this.GetType().Name.Replace(ConstantData.ControllerHeader, string.Empty)
+                + ConstantData.DefaultPathChar
+                + viewPath
+                + ConstantData.HtmlFileExtension)
+                .ToString();
 
             byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
 

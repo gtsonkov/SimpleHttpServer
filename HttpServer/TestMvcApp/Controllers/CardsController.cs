@@ -1,6 +1,5 @@
 ﻿using HttpServer.Http;
 using HttpServer.MvcFramework;
-using TestMvcApp.Common;
 
 namespace TestMvcApp.Controllers
 {
@@ -8,20 +7,17 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse All(HttpRequest request)
         {
-            string path = Generator.GenerateInternPath(request.Path);
-            return this.Viev(path);
+            return this.View("All");
         }
 
         public HttpResponse Add(HttpRequest request)
         {
-            string path = Generator.GenerateInternPath(request.Path);
-            return this.Viev(path);
+            return this.View("Add");
         }
 
         public HttpResponse Collection(HttpRequest request)
         {
-            string path = Generator.GenerateInternPath(request.Path);
-            return this.Viev(path);
+            return this.View("Collectons");
         }
     }
 }
