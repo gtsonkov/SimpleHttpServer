@@ -15,24 +15,12 @@ namespace HttpServer.Http
     {
         private Logger _logger;
 
-        private IDictionary<string, Func<HttpRequest, HttpResponse>> routTable;
+        private IList<Route> routTable;
 
-        public Server()
+        public Server(List<Route>routTable)
         {
             this._logger = new Logger();
-            this.routTable = new Dictionary<string, Func<HttpRequest, HttpResponse>>();
-        }
-
-        public void AddRoute(string path, Func<HttpRequest, HttpResponse> action)
-        {
-            if (this.routTable.ContainsKey(path))
-            {
-                this.routTable[path] = action;
-
-                return;
-            }
-
-            this.routTable.Add(path, action);
+            this.routTable = routTable;
         }
 
         /// <summary>
@@ -98,9 +86,11 @@ namespace HttpServer.Http
 
                 HttpResponse response;
 
-                if (this.routTable.ContainsKey(request.Path))
+                var currRoute = this.routTable.FirstOrDefault(x => x.Path == request.Path);
+
+                if (currRoute != null)
                 {
-                    var action = this.routTable[request.Path];
+                    var action = this.routTable.FirstOrDefault(x => x.Path == request.Path).Action;
                     response = action(request);
                 }
 
