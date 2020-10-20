@@ -1,7 +1,5 @@
 ﻿using HttpServer.Http;
 using HttpServer.MvcFramework;
-using System.Text;
-using TestMvcApp.Common;
 
 namespace TestMvcApp.Controllers
 {
@@ -9,12 +7,12 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse Login(HttpRequest request)
         {
-            return this.View("Login");
+            return this.View();
         }
 
         public HttpResponse Register(HttpRequest request)
         {
-            return this.View("Register");
+            return this.View();
         }
     }
 }

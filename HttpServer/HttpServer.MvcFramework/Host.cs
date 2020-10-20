@@ -7,9 +7,13 @@ namespace HttpServer.MvcFramework
 {
     public class Host
     {
-        public static async Task RunAsync(List<Route> routTable, int port = 80)
+        public static async Task RunAsync(IMvcApplication application, int port = 80)
         {
-            IHttpServer server = new Server(routTable);
+            List<Route> routeTable = new List<Route>();
+            application.ConfigureServices();
+            application.Configure(routeTable);
+
+            IHttpServer server = new Server(routeTable);
             await server.StartAsync(port);
         }
     }

@@ -7,17 +7,17 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse All(HttpRequest request)
         {
-            return this.View("All");
+            return this.View();
         }
 
         public HttpResponse Add(HttpRequest request)
         {
-            return this.View("Add");
+            return this.View();
         }
 
         public HttpResponse Collection(HttpRequest request)
         {
-            return this.View("Collectons");
+            return this.View();
         }
     }
 }

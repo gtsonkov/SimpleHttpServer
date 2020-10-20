@@ -1,4 +1,6 @@
 ﻿using HttpServer.Http.Constants;
+using HttpServer.Http.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +25,7 @@ namespace HttpServer.Http
 
         public string Path { get; set; }
 
-        public string Method { get; set; }
+        public HttpMethod Method { get; set; }
 
         public string RequestBoddy { get; set; }
 
@@ -44,7 +46,7 @@ namespace HttpServer.Http
                 .Split(' ')
                 .ToArray();
 
-            this.Method = headerLineParts[0];
+            this.Method =(HttpMethod)Enum.Parse(typeof(HttpMethod), headerLineParts[0]);
 
             this.Path = headerLineParts[1];
 

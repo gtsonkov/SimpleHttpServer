@@ -7,12 +7,12 @@ namespace TestMvcApp.Controllers
     {
         public HttpResponse Index(HttpRequest request)
         {
-            return this.View("Index");
+            return this.View();
         }
 
         public HttpResponse About(HttpRequest request)
         {
-            return this.View("About");
+            return this.View();
         }
     }
 }

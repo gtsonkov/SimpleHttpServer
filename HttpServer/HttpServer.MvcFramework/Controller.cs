@@ -1,15 +1,17 @@
 ﻿using HttpServer.Http;
 using HttpServer.Http.Constants;
-using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace HttpServer.MvcFramework
 {
     public abstract class Controller
     {
-        public HttpResponse View (string viewPath)
+        public HttpResponse View ([CallerMemberName] string viewPath = null)
         {
-            string responseHtml = File.ReadAllText(
+            string layout = System.IO.File.ReadAllText(ConstantData.LayoutPath).ToString();
+
+            string currViewHtml = System.IO.File.ReadAllText(
                 ConstantData.DefaultViewFolder 
                 + ConstantData.DefaultPathChar 
                 + this.GetType().Name.Replace(ConstantData.ControllerHeader, string.Empty)
@@ -18,11 +20,20 @@ namespace HttpServer.MvcFramework
                 + ConstantData.HtmlFileExtension)
                 .ToString();
 
-            byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
+            string responseHtml = layout.Replace(ConstantData.RenderBodyHeader, currViewHtml);
+
+           byte[] responseBodyBytes = EncodingUtfToBytes(responseHtml);
 
             var response = new HttpResponse(MessagesResponse.ContentHTML, responseBodyBytes);
             response.Headers.Add(new Header(ConstantData.ServerNameHeader, MessagesResponse.FullServerInfo));
 
+            return response;
+        }
+
+        protected HttpResponse File(string filePath, string contentType)
+        {
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var response = new HttpResponse(contentType, fileBytes);
             return response;
         }
 

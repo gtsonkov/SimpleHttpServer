@@ -86,7 +86,9 @@ namespace HttpServer.Http
 
                 HttpResponse response;
 
-                var currRoute = this.routTable.FirstOrDefault(x => x.Path == request.Path);
+                var currRoute = this.routTable
+                    .FirstOrDefault(x => string.Compare(x.Path, request.Path, true) == 0
+                    && x.Method == request.Method);
 
                 if (currRoute != null)
                 {

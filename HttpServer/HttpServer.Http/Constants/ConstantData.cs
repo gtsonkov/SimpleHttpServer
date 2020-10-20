@@ -23,5 +23,9 @@
         public static string ControllerHeader = "Controller";
 
         public const string HtmlFileExtension = ".html";
+
+        public const string LayoutPath = "View/Shared/_Layout.html";
+
+        public const string RenderBodyHeader = "@RenderBody()";
     }
 }
