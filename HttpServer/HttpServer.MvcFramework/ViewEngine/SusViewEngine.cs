@@ -1,8 +1,10 @@
 ﻿using HttpServer.MvcFramework.ViewEngine.Common.ConstantData;
 using HttpServer.MvcFramework.ViewEngine.Contracts;
+using HttpServer.MvcFramework.ViewEngine.ViewModels;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -67,6 +69,7 @@ namespace HttpServer.MvcFramework.ViewEngine
                 .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)) //What kind of projekt will be created, in this case will be created DLL
                 .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location)) //.Net Base lilbrary will be refered to this project
                 .AddReferences(MetadataReference.CreateFromFile(typeof(IView).Assembly.Location)); // The HttpServer.MvcFramework Lib will be refered
+            
             if (viewModel != null)
             {
                 compileResult = compileResult.AddReferences(MetadataReference.CreateFromFile(viewModel.GetType().Assembly.Location));
@@ -86,7 +89,34 @@ namespace HttpServer.MvcFramework.ViewEngine
                     .Location));
             }
 
-            throw new NotImplementedException();
+            compileResult = compileResult.AddSyntaxTrees(SyntaxFactory.ParseSyntaxTree(csharpCode));
+
+            using (MemoryStream memStream = new MemoryStream())
+            {
+               var compilationResult = compileResult.Emit(memStream);
+
+                if (!compilationResult.Success)
+                {
+                    var errorList = compilationResult
+                        .Diagnostics
+                        .Where(x => x.Severity == DiagnosticSeverity.Error)
+                        .Select(x => x.GetMessage())
+                        .ToList();
+
+                    return new ErrorView(errorList, csharpCode);
+                }
+
+                memStream.Seek(0, SeekOrigin.Begin); //Read this stream from the begin
+
+                var byteAssembly = memStream.ToArray();
+
+                var assembly = Assembly.Load(byteAssembly);
+                var viewType = assembly.GetType("ViewNamespace.ViewClass");
+
+                var currIstance = Activator.CreateInstance(viewType);
+
+                return currIstance as IView;
+            }
         }
 
         private string GetMethodBody(string templateCode) => throw new NotImplementedException();

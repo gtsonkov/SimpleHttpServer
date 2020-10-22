@@ -5,5 +5,7 @@
         public const string CompilationAsamblyName = "ViewAsebly";
 
         public const string DotNetSatndardLibName = "netstandard";
+
+        public const string FinalDllName = "view.dll";
     }
 }
