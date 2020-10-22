@@ -1,5 +1,7 @@
 ﻿using HttpServer.MvcFramework.ViewEngine.Common.ConstantData;
 using HttpServer.MvcFramework.ViewEngine.Contracts;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.IO;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace HttpServer.MvcFramework.ViewEngine
         public string GetHtml(string templateCode, object viewModel)
         {
             string csharpCode = GenerateCsharpCode(templateCode);
-            IView execupableOject = GenerateExecutableCode(csharpCode);
+            IView execupableOject = GenerateExecutableCode(csharpCode, viewModel);
             var html = execupableOject.GetHtml(viewModel);
 
             return html;
@@ -43,8 +45,6 @@ namespace HttpServer.MvcFramework.ViewEngine
             return sb.ToString();
         }
 
-        private IView GenerateExecutableCode(string csharpCode) => throw new NotImplementedException();
-
         private string GenerateCsharpCode(string templateCode)
         {
             string usings = GetUsings(typeof(CsharpLibs));
@@ -59,6 +59,34 @@ namespace HttpServer.MvcFramework.ViewEngine
                 + CodeTemplatePart2Path);
 
             return csharpCode;
+        }
+
+        private IView GenerateExecutableCode(string csharpCode, object viewModel)
+        {
+            var compileResult = CSharpCompilation.Create(CompilationConstants.CompilationAsamblyName)
+                .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)) //What kind of projekt will be created, in this case will be created DLL
+                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location)) //.Net Base lilbrary will be refered to this project
+                .AddReferences(MetadataReference.CreateFromFile(typeof(IView).Assembly.Location)); // The HttpServer.MvcFramework Lib will be refered
+            if (viewModel != null)
+            {
+                compileResult = compileResult.AddReferences(MetadataReference.CreateFromFile(viewModel.GetType().Assembly.Location));
+            }
+
+            //We shoud also add ALL .NetCore Standad Libs!!!
+
+            var standadDotNetCoreLibs = Assembly.Load(
+                new AssemblyName(CompilationConstants.DotNetSatndardLibName))
+                .GetReferencedAssemblies(); //Get all .NetCore Standard Libs
+
+            foreach (var lib in standadDotNetCoreLibs)
+            {
+                compileResult = compileResult.AddReferences(
+                    MetadataReference
+                    .CreateFromFile(Assembly.Load(lib)
+                    .Location));
+            }
+
+            throw new NotImplementedException();
         }
 
         private string GetMethodBody(string templateCode) => throw new NotImplementedException();
