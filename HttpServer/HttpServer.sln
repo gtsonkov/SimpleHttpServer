@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMvcApp", "TestMvcApp\Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IO", "IO\IO.csproj", "{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SUS.MvcFramework.Tests", "SUS.MvcFramework.Tests\SUS.MvcFramework.Tests.csproj", "{29BCE92B-08CB-4BB6-A289-EF5E8B8D36AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEE676F9-3B55-4CD4-A6BB-68EC6A15383A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29BCE92B-08CB-4BB6-A289-EF5E8B8D36AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29BCE92B-08CB-4BB6-A289-EF5E8B8D36AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29BCE92B-08CB-4BB6-A289-EF5E8B8D36AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29BCE92B-08CB-4BB6-A289-EF5E8B8D36AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
