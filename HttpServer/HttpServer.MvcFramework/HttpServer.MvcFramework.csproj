@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,6 +6,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HttpServer.Http\HttpServer.Http.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ViewEngine\Common\CodeTemplate-Part1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ViewEngine\Common\CodeTemplate-Part2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

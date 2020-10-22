@@ -1,6 +1,7 @@
 ﻿using HttpServer.Http;
 using HttpServer.Http.Enums;
 using HttpServer.MvcFramework;
+using HttpServer.MvcFramework.ViewEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TestMvcApp.Controllers;
@@ -12,7 +13,8 @@ namespace TestMvcApp
         static async Task Main(string[] args)
         {
             List<Route> routTable = new List<Route>();
-
+            SusViewEngine test = new SusViewEngine();
+            var test2 = test.GetHtml(string.Empty,null);
             routTable.Add(new Route("/", HttpMethod.Get ,new HomeController().Index));
             routTable.Add(new Route("/Home/About", HttpMethod.Get, new HomeController().About));
             routTable.Add(new Route("/Users/Login", HttpMethod.Get, new UsersController().Login));
